@@ -15,7 +15,7 @@ app.use(express.json(), express.urlencoded({ extended: true }));
 const AllRoutes = require("./server/routes/pets.routes");
 AllRoutes(app);
 
-// app.listen(PORT, () => console.log(`The server is listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`The server is listening on port ${PORT}`));
 
 app.get('/', (req, res, next) => {
     res.status(200).send('Hello world!');
@@ -23,7 +23,7 @@ app.get('/', (req, res, next) => {
 
 const https = require('https');
 const server = https.createServer({ key, cert }, app);
-
-server.listen(PORT, () => {
-    console.log(`Server is listening on https://localhost:${PORT}`);
+const port = 3000;
+server.listen(port, () => {
+    console.log(`Server is listening on https://localhost:${port}`);
 });
