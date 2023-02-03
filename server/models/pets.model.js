@@ -19,7 +19,8 @@ const petSchema = new mongoose.Schema({
     skill1: String,
     skill2: String,
     skill3: String,
-    likes: 0
+    likes: 0,
+    imgUrl: String
 })
 
 const Pet = mongoose.model("Pet", petSchema);
