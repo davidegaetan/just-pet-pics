@@ -8,6 +8,7 @@ const NewPet = () => {
     const [skill2, setSkill2] = useState()
     const [skill3, setSkill3] = useState()
     const [name, setName] = useState();
+    const [imgUrl, setImgUrl] = useState();
     const [petType, setPetType] = useState();
     const [description, setDescription] = useState("");
     const [allErrors, setAllErrors] = useState("")
@@ -21,7 +22,8 @@ const NewPet = () => {
             skill1,
             skill2,
             skill3,
-            likes: 0
+            likes: 0,
+            imgUrl
         })
             .then(res => {
                 alert(res.data.err.errors.name.message + "\n" + res.data.err.errors.description.message + "\n" + res.data.err.errors.petType.message)
@@ -46,16 +48,18 @@ const NewPet = () => {
                     <input type="text" name="petType" id="petType" onChange={e => setPetType(e.target.value)} />
                     <label htmlFor="description" >Description</label>
                     <input type="text" name="description" id="description" onChange={e => setDescription(e.target.value)} />
+                    <label htmlFor="imgUrl" >Img Url</label>
+                    <input type="text" name="imgUrl" id="imgUrl" onChange={e => setImgUrl(e.target.value)} />
                     <button type="submit" className='mt-3 btn btn-primary' onClick={newPet}>Add Pet</button>
                 </div>
                 <div className='d-flex flex-column m-3'>
                     <p>Skills (optional):</p>
                     <label htmlFor="skill-1" >Skill 1:</label>
-                    <input type="text" name="skill-1" id="description" onChange={e => setSkill1(e.target.value)} />
+                    <input type="text" name="skill-1" id="skill-1" onChange={e => setSkill1(e.target.value)} />
                     <label htmlFor="skill-2" >Skill 2:</label>
-                    <input type="text" name="skill-2" id="description" onChange={e => setSkill2(e.target.value)} />
+                    <input type="text" name="skill-2" id="skill-2" onChange={e => setSkill2(e.target.value)} />
                     <label htmlFor="skill-3" >skill 3:</label>
-                    <input type="text" name="skill-3" id="description" onChange={e => setSkill3(e.target.value)} />
+                    <input type="text" name="skill-3" id="skill-3" onChange={e => setSkill3(e.target.value)} />
                 </div>
             </form>
         </div>

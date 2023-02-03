@@ -31,12 +31,29 @@ const PetDetails = () => {
             <div className='m-3 w-50 border border-dark border-2 p-3'>
                 <h5>Pet Type: {details.petType}</h5>
                 <h5>Description: {details.description}</h5>
-                <h5>Skills:</h5>
+                <div className='d-flex flex-row justify-content-around mt-3'>
+                    <div>
+                {
+                    details.skill1 || details.skill2 || details.skill3 ? <h5>Skills:</h5> : <></>
+                    
+                }
                 <ul>
-                    <li><h5>{details.skill1}</h5></li>
-                    <li><h5>{details.skill2}</h5></li>
-                    <li><h5>{details.skill3}</h5></li>
+                    {
+                        details.skill1 ? <li><h5>{details.skill1}</h5></li> : <></>
+                    }
+                    {
+                        details.skill2 ? <li><h5>{details.skill2}</h5></li> : <></>
+                    }
+                    {
+                        details.skill3 ? <li><h5>{details.skill3}</h5></li> : <></>
+                    }
                 </ul>
+                    </div>
+                    {
+                        details.imgUrl ? <img src={details.imgUrl} alt="dobermna puppy" className='w-50'/> : <div className='w-25'></div>
+                    }
+                
+                </div>
                 <button className='btn btn-success'>Like</button><p>{details.likes} like(s)</p>
             </div>
         </div>

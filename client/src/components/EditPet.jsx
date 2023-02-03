@@ -12,6 +12,7 @@ const EditPet = () => {
     const [name, setName] = useState(details.name);
     const [petType, setPetType] = useState(details.petType);
     const [description, setDescription] = useState(details.description);
+    const [imgUrl, setImgUrl] = useState();
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/pets/${petId}`)
@@ -29,7 +30,8 @@ const EditPet = () => {
             description,
             skill1,
             skill2,
-            skill3
+            skill3,
+            imgUrl
         })
             .then(res => console.log(res))
             .catch(err => console.log(err, "err"))
@@ -50,6 +52,8 @@ const EditPet = () => {
                     <input type="text" name="petType" id="petType" onChange={e => setPetType(e.target.value)} defaultValue={details.petType} />
                     <label htmlFor="description" >Description</label>
                     <input type="text" name="description" id="description" onChange={e => setDescription(e.target.value)} defaultValue={details.description} />
+                    <label htmlFor="imgUrl" >Img Url</label>
+                    <input type="text" name="imgUrl" id="imgUrl" onChange={e => setImgUrl(e.target.value)} defaultValue={details.imgUrl}/>
                     <button type="submit" onClick={editProduct} className='mt-3 btn btn-primary'>Edit Pet</button>
                 </div>
                 <div className='d-flex flex-column m-3'>
