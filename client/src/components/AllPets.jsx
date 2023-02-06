@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import DeleteProductButton from './AdoptPetButton'
 import axios from 'axios'
 
 const AllPets = () => {
@@ -9,7 +8,6 @@ const AllPets = () => {
     useEffect(() => {
         axios.get('http://localhost:8080/api/pets')
             .then(res => {
-                console.log(res.data.Pets)
                 setPets(res.data.Pets)
             })
             .catch(err => console.log(err))
@@ -17,18 +15,20 @@ const AllPets = () => {
 
 
     return (
-        <div className='w-50 m-auto'>
-            <div className='d-flex justify-content-between m-3'>
+        <div className='col-lg-6 col-md-8 m-auto'>
+            <div className='d-flex justify-content-between mt-2'>
                 <h1 >Pet Shelter</h1>
                 <NavLink to={"/pets/new"} >add a pet to the shelter</NavLink>
             </div>
-            <h4 className='m-3'>These pets are looking for a good home</h4>
-            <table className='m-3 w-50 table table-striped border border-dark border-2'>
+            <div className=' mb-3'>
+                <h4 className='mt-2'>These pets are looking for a good home</h4>
+            </div>
+            <table className='mt-2 table table-striped border border-dark border-2 p-3'>
                 <thead >
                     <tr >
-                        <th className='border border-dark w-auto border-2'>Name</th>
-                        <th className='border border-dark w-auto border-2'>Type</th>
-                        <th className='border border-dark w-auto border-2'>Actions</th>
+                        <th className='border border-dark  border-2'>Name</th>
+                        <th className='border border-dark  border-2'>Type</th>
+                        <th className='border border-dark  border-2'>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
