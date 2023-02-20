@@ -11,10 +11,14 @@ const NewPet = () => {
     const [imgUrl, setImgUrl] = useState();
     const [petType, setPetType] = useState();
     const [description, setDescription] = useState("");
-    const [allErrors, setAllErrors] = useState("")
+    const [allErrors, setAllErrors] = useState({});
+    const validatedForm = 'mt-2 border border-dark border-2 p-3 was-validated';
+    const notValidatedForm = 'mt-2 border border-dark border-2 p-3';
+    const [formValidation, setFormValidation] = useState(notValidatedForm);
 
     const newPet = (e) => {
         e.preventDefault();
+        setFormValidation(validatedForm);
         axios.post('http://localhost:8080/api/pets/new/', {
             name,
             petType,
@@ -26,11 +30,15 @@ const NewPet = () => {
             imgUrl
         })
             .then(res => {
-                alert(res.data.err.errors.name.message + "\n" + res.data.err.errors.description.message + "\n" + res.data.err.errors.petType.message)
                 console.log(res)
                 navigate("/");
             })
-            .catch(err => console.log(err, "err"))
+            .catch(err => {
+                console.log(err.response.data.errors, "err.response.data.errors")
+                setAllErrors(err.response.data.errors)
+
+
+            })
     }
 
     return (
@@ -42,15 +50,18 @@ const NewPet = () => {
             <div className=' mb-3'>
                 <h4 className='mt-2'>Know a pet needing a home?</h4>
             </div>
-            <form className='mt-2 border border-dark border-2 p-3'>
+            <form className={formValidation}>
                 <div className='row'>
                     <div className='col'>
                         <label htmlFor="name" >Pet Name</label>
-                        <input type="text" name="name" id="name" onChange={e => setName(e.target.value)} className='form-control' />
+                        <input type="text" name="name" id="name" onChange={e => setName(e.target.value)} className='form-control' required minLength="3" />
+                        {allErrors.name ? <div className='invalid-feedback'> {allErrors.name.message}</div> : <div></div>}
                         <label htmlFor="petType" >Pet Type</label>
-                        <input type="text" name="petType" id="petType" onChange={e => setPetType(e.target.value)} className='form-control' />
+                        <input type="text" name="petType" id="petType" onChange={e => setPetType(e.target.value)} className='form-control' required minLength="3" />
+                        {allErrors.petType ? <div className='invalid-feedback'> {allErrors.petType.message}</div> : <div></div>}
                         <label htmlFor="description" >Description</label>
-                        <input type="text" name="description" id="description" onChange={e => setDescription(e.target.value)} className='form-control' />
+                        <input type="text" name="description" id="description" onChange={e => setDescription(e.target.value)} className='form-control' required minLength="3" />
+                        {allErrors.description ? <div className='invalid-feedback'> {allErrors.description.message}</div> : <div></div>}
                         <label htmlFor="imgUrl" >Img Url</label>
                         <input type="text" name="imgUrl" id="imgUrl" onChange={e => setImgUrl(e.target.value)} className='form-control' />
                     </div>

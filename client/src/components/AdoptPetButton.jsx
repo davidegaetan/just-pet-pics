@@ -1,21 +1,22 @@
 import React from 'react'
 import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 const AdoptPetButton = (props) => {
     const navigate = useNavigate();
-    
-    const deleteProduct = () => {
+
+    const deletePet = () => {
         axios.delete(`http://localhost:8080/api/pets/${props.details}/adopt`)
-            .then((res)=>{
-                if(props.goHome){
+            .then((res) => {
+                console.log(res)
+                if (props.goHome) {
                     navigate("/")
                 }
             })
-            .catch(err=>console.log(err, "error"))
+            .catch(err => console.log(err))
     }
     return (
         <div>
-            <button className='btn btn-danger' type="submit" onClick={deleteProduct} formAction="/">Adopt Pet!</button>
+            <button className='btn btn-danger' type="submit" onClick={deletePet} formAction="/">Adopt Pet!</button>
         </div>
     )
 }

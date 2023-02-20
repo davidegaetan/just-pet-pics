@@ -14,6 +14,7 @@ const PetDetails = () => {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/pets/${petId}`)
             .then(res => {
+                console.log(res)
                 setDetails(res.data.Pets)
             })
             .catch(err => console.log(err))
@@ -28,10 +29,11 @@ const PetDetails = () => {
                 likes: newLike
             })
                 .then(res => console.log(res))
-                .catch(err => console.log(err, "err"))
+                .catch(err => console.log(err))
 
             axios.get(`http://localhost:8080/api/pets/${petId}`)
                 .then(res => {
+                    console.log(res)
                     setDetails(res.data.Pets)
                 })
                 .catch(err => console.log(err))
@@ -54,29 +56,29 @@ const PetDetails = () => {
                 <div className='mt-2 mb-3  w-50 d-flex flex-column'>
                     <div>
 
-                    <h5>Pet Type: {details.petType}</h5>
-                    <h5>Description: {details.description}</h5>
-                    <div>
-                        {
-                            details.skill1 || details.skill2 || details.skill3 ? <h5>Skills:</h5> : <></>
+                        <h5>Pet Type: {details.petType}</h5>
+                        <h5>Description: {details.description}</h5>
+                        <div>
+                            {
+                                details.skill1 || details.skill2 || details.skill3 ? <h5>Skills:</h5> : <></>
 
-                        }
-                        <ul >
-                            {
-                                details.skill1 ? <li><h5>{details.skill1}</h5></li> : <></>
                             }
-                            {
-                                details.skill2 ? <li><h5>{details.skill2}</h5></li> : <></>
-                            }
-                            {
-                                details.skill3 ? <li><h5>{details.skill3}</h5></li> : <></>
-                            }
-                        </ul>
-                        <div className=''>
-                            {!liked ? details.likes : like} like(s)
+                            <ul >
+                                {
+                                    details.skill1 ? <li><h5>{details.skill1}</h5></li> : <></>
+                                }
+                                {
+                                    details.skill2 ? <li><h5>{details.skill2}</h5></li> : <></>
+                                }
+                                {
+                                    details.skill3 ? <li><h5>{details.skill3}</h5></li> : <></>
+                                }
+                            </ul>
+                            <div className=''>
+                                {!liked ? details.likes : like} like(s)
+                            </div>
+                            <button className='btn btn-success' onClick={likeButton}>Like</button>
                         </div>
-                        <button className='btn btn-success' onClick={likeButton}>Like</button>
-                    </div>
                     </div>
                 </div>
                 <div className='mt-2 mb-3 w-50 flex-wrap'>

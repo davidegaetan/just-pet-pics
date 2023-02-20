@@ -1,9 +1,9 @@
-const ProductController = require("../controller/pets.controller");
+const PetController = require("../controller/pets.controller");
 
 module.exports = app => {
-    app.get("/api/pets/", ProductController.findAllPets);
-    app.get("/api/pets/:id", ProductController.findOnePet);
-    app.post("/api/pets/new", ProductController.insertNewPet);
-    app.put("/api/pets/:id/edit", ProductController.editPet);
-    app.delete("/api/pets/:id/adopt", ProductController.adoptPet);
+    app.get("/api/pets/", PetController.findAllPets);
+    app.get("/api/pets/:id", PetController.findOnePet);
+    app.post("/api/pets/new", PetController.insertNewPet);
+    app.put("/api/pets/:id/edit", PetController.editPet);
+    app.delete("/api/pets/:id/adopt", PetController.adoptPet);
 }
