@@ -8,6 +8,7 @@ const AllPets = () => {
     useEffect(() => {
         axios.get('http://localhost:8080/api/pets')
             .then(res => {
+                console.log(res)
                 setPets(res.data.Pets)
             })
             .catch(err => console.log(err))
