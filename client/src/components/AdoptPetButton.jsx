@@ -5,19 +5,23 @@ const AdoptPetButton = (props) => {
     const navigate = useNavigate();
 
     const deletePet = () => {
-        axios.delete(`http://localhost:8080/api/pets/${props.details}/adopt`)
+        axios.delete(`http://localhost:8080/api/pets/${props.details}/adopt`,
+            { withCredentials: true })
             .then((res) => {
                 console.log(res)
                 if (props.goHome) {
                     navigate("/")
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+                alert("Only admins can delete Pets")
+            })
     }
     return (
-        <div>
-            <button className='btn btn-danger' type="submit" onClick={deletePet} formAction="/">Adopt Pet!</button>
-        </div>
+        <>
+            <button className='btn text-danger' type="submit" onClick={deletePet} formAction="/"><u>delete</u></button>
+        </>
     )
 }
 

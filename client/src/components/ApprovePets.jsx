@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
-import Login from './Login';
+import UserLogout from './UserLogout';
 
-const AllPets = () => {
+
+const ApprovePets = () => {
     const [pets, setPets] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/pets')
+        axios.get('http://localhost:8080/api/admin/approve',
+            { withCredentials: true })
             .then(res => {
+                console.log(res.data.Pets, "res.data.Pets")
                 setPets(res.data.Pets)
             })
             .catch(err => console.log(err))
     }, [])
+
+    const approvePet = (petId) => {
+        axios.put(`http://localhost:8080/api/pets/${petId}/edit`, {
+            approved: true
+        }, { withCredentials: true })
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
 
     return (
@@ -20,18 +35,18 @@ const AllPets = () => {
             <div className='d-flex justify-content-between mt-2 ms-2 ms-md-0'>
                 <h1 >Just Pet Pics</h1>
                 <div>
-                    <Login/>
+                    <UserLogout allbtns={false} /> <button className='btn '><NavLink to={"/"} >back to home</NavLink></button>
                 </div>
             </div>
             <div className=' mb-3'>
-                <h4 className='mt-2 ms-2 ms-md-0'>Check out these pets</h4>
+                <h4 className='mt-2 ms-2 ms-md-0'>Approve new pets</h4>
             </div>
             <div className='mt-2  pt-3'>
 
                 {
                     pets.map((pet, id) => {
-                        return (
-                            <div className='d-sm-flex flex-column flex-sm-row justify-content-sm-around border-top border-2 pt-3 pb-3 ' key={pet + id + "div1"}>
+                        return (<>
+                            {<div className='d-sm-flex flex-column flex-sm-row justify-content-sm-around border-top border-2 pt-3 pb-3 ' key={pet + id + "div1"}>
                                 <div className='w-50 m-auto p-2' key={pet + id + "div2"}>
                                     <img key={pet + id + "img"} src={pet.imgUrl} className='w-100' alt='pet profile' />
                                 </div>
@@ -56,10 +71,12 @@ const AllPets = () => {
                                     </div>
                                     <div className='d-flex justify-content-around flex-column' key={pet + id + "link"}>
                                         <div>{pet.likes} like(s)</div>
-                                        <NavLink to={"pets/" + pet._id} >view</NavLink>
+                                        <NavLink to={"pets/" + pet._id} >view</NavLink> <button className='btn' onSubmit={approvePet(pet._id)}>approve</button>
                                     </div>
                                 </div>
-                            </div>)
+                            </div>
+                            }
+                        </>)
                     })
                 }
 
@@ -68,4 +85,4 @@ const AllPets = () => {
     )
 }
 
-export default AllPets
+export default ApprovePets

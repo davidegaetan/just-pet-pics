@@ -20,7 +20,19 @@ const petSchema = new mongoose.Schema({
     skill2: String,
     skill3: String,
     likes: 0,
-    imgUrl: String
+    imgUrl: String,
+    img1: String,
+    img2: String,
+    img3: String,
+    img4: String,
+    comments: [
+        {
+            comment: String,
+            commentBy: String
+        }
+    ],
+    userId: String,
+    approved: false
 })
 
 const Pet = mongoose.model("Pet", petSchema);
