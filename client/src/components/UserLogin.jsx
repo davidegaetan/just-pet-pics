@@ -6,8 +6,8 @@ const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [allErrors, setAllErrors] = useState({});
-    const validatedForm = 'mt-2 border border-dark border-2 p-3 was-validated';
-    const notValidatedForm = 'mt-2 border border-dark border-2 p-3';
+    const validatedForm = 'mt-2 border-top border-2 p-3 was-validated';
+    const notValidatedForm = 'mt-2 border-top border-2 p-3';
     const [formValidation, setFormValidation] = useState(notValidatedForm);
     const navigate = useNavigate();
 
