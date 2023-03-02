@@ -2,16 +2,22 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 import Login from './Login';
+import AdoptPetButton from './AdoptPetButton';
 
-const AllPets = () => {
+
+const YourPets = () => {
     const [pets, setPets] = useState([]);
 
+
     useEffect(() => {
-        axios.get('http://localhost:8080/api/pets')
+        console.log("useffect")
+        axios.get('http://localhost:8080/api/user/pets/',
+            { withCredentials: true })
             .then(res => {
+                console.log(res, "res")
                 setPets(res.data.Pets)
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err, "err"))
     }, [])
 
 
@@ -20,11 +26,11 @@ const AllPets = () => {
             <div className='d-flex justify-content-between mt-2 ms-2 ms-md-0'>
                 <h1 >Just Pet Pics</h1>
                 <div>
-                    <Login/>
+                    <Login /> <button className='btn'><NavLink to={"/"} >back to home</NavLink></button>
                 </div>
             </div>
             <div className=' mb-3'>
-                <h4 className='mt-2 ms-2 ms-md-0'>Check out these pets</h4>
+                <h4 className='mt-2 ms-2 ms-md-0'>All your pets</h4>
             </div>
             <div className='mt-2  pt-3'>
 
@@ -56,7 +62,9 @@ const AllPets = () => {
                                     </div>
                                     <div className='d-flex justify-content-around flex-column' key={pet + id + "link"}>
                                         <div>{pet.likes} like(s)</div>
-                                        <NavLink to={"pets/" + pet._id} >view</NavLink>
+                                        <div>
+                                            <button className='btn'><NavLink to={"pets/" + pet._id} >view</NavLink></button> <button className='btn'><NavLink to={"/pets/" + pet._id + "/edit"} >edit</NavLink></button><AdoptPetButton/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>)
@@ -68,4 +76,4 @@ const AllPets = () => {
     )
 }
 
-export default AllPets
+export default YourPets

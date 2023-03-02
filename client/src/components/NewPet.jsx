@@ -12,13 +12,12 @@ const NewPet = () => {
     const [petType, setPetType] = useState();
     const [description, setDescription] = useState("");
     const [allErrors, setAllErrors] = useState({});
-    const validatedForm = 'mt-2 border border-dark border-2 p-3 was-validated';
-    const notValidatedForm = 'mt-2 border border-dark border-2 p-3';
+    const validatedForm = 'mt-2 border-top border-2 p-3 was-validated';
+    const notValidatedForm = 'mt-2 border-top border-2 p-3';
     const [formValidation, setFormValidation] = useState(notValidatedForm);
 
     const newPet = (e) => {
         e.preventDefault();
-        setFormValidation(validatedForm);
         axios.post('http://localhost:8080/api/pets/new/', {
             name,
             petType,
@@ -27,27 +26,31 @@ const NewPet = () => {
             skill2,
             skill3,
             likes: 0,
-            imgUrl
-        })
+            imgUrl,
+            approved: false
+        }, {withCredentials:true})
             .then(res => {
                 console.log(res)
                 navigate("/");
             })
             .catch(err => {
-                console.log(err.response.data.errors, "err.response.data.errors")
-                setAllErrors(err.response.data.errors)
-
-
+                console.log(err.response.status, "err.response.status")
+                if(err.response.status !== 401){
+                    setFormValidation(validatedForm);
+                    setAllErrors(err.response.data.errors)
+                }else{
+                    alert("You must log in to add a new pet")
+                }
             })
     }
 
     return (
         <div className='col-lg-6 col-md-8 m-auto'>
-            <div className='d-flex justify-content-between mt-2'>
-                <h1 >Pet Shelter</h1>
+            <div className='d-flex justify-content-between mt-2 ms-2 ms-md-0'>
+                <h1 >Just Pet Pics</h1>
                 <NavLink to={"/"} >back to home</NavLink>
             </div>
-            <div className=' mb-3'>
+            <div className=' mb-3 ms-2 ms-md-0'>
                 <h4 className='mt-2'>Know a pet needing a home?</h4>
             </div>
             <form className={formValidation}>
@@ -55,13 +58,13 @@ const NewPet = () => {
                     <div className='col'>
                         <label htmlFor="name" >Pet Name</label>
                         <input type="text" name="name" id="name" onChange={e => setName(e.target.value)} className='form-control' required minLength="3" />
-                        {allErrors.name ? <div className='invalid-feedback'> {allErrors.name.message}</div> : <div></div>}
+                        {/* {allErrors.name ? <div className='invalid-feedback'> {allErrors.name.message}</div> : <div></div>} */}
                         <label htmlFor="petType" >Pet Type</label>
                         <input type="text" name="petType" id="petType" onChange={e => setPetType(e.target.value)} className='form-control' required minLength="3" />
-                        {allErrors.petType ? <div className='invalid-feedback'> {allErrors.petType.message}</div> : <div></div>}
+                        {/* {allErrors.petType ? <div className='invalid-feedback'> {allErrors.petType.message}</div> : <div></div>} */}
                         <label htmlFor="description" >Description</label>
                         <input type="text" name="description" id="description" onChange={e => setDescription(e.target.value)} className='form-control' required minLength="3" />
-                        {allErrors.description ? <div className='invalid-feedback'> {allErrors.description.message}</div> : <div></div>}
+                        {/* {allErrors.description ? <div className='invalid-feedback'> {allErrors.description.message}</div> : <div></div>} */}
                         <label htmlFor="imgUrl" >Img Url</label>
                         <input type="text" name="imgUrl" id="imgUrl" onChange={e => setImgUrl(e.target.value)} className='form-control' />
                     </div>

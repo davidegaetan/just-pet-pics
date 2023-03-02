@@ -39,7 +39,7 @@ const EditPet = () => {
             skill2,
             skill3,
             imgUrl
-        })
+        }, {withCredentials:true})
             .then(res => {
                 console.log(res)
                 navigate("/")
@@ -52,12 +52,12 @@ const EditPet = () => {
 
     return (
         <div className='col-lg-6 col-md-8 m-auto'>
-            <div className='d-flex justify-content-between mt-2 '>
-                <h1 >Pet Shelter</h1>
-                <NavLink to={"/"} >back to home</NavLink>
+            <div className='d-flex justify-content-between mt-2 ms-2 ms-md-0'>
+                <h1 >Just Pet Pics</h1>
+                <button className='btn'><NavLink to={"/"} >back to home</NavLink></button>
             </div>
             <div className=' mb-3'>
-                <h4 className='mt-2'>Edit {details.name}</h4>
+                <h4 className='mt-2 ms-2 ms-md-0'>Edit {details.name}</h4>
             </div>
             <form className={formValidation}>
                 <div className='row'>
@@ -83,7 +83,7 @@ const EditPet = () => {
                         <input type="text" name="skill-3" id="skill-3" onChange={e => setSkill3(e.target.value)} defaultValue={details.skill3} className='form-control' />
                     </div>
                 </div>
-                <button type="submit" onClick={editAPet} className='mt-3 btn btn-primary'>Edit Pet</button>
+                <button type="submit" onClick={editAPet} className='mt-3 btn btn-primary'>Save Changes</button>
             </form>
         </div>
     )
