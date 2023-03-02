@@ -1,4 +1,4 @@
-# pet-shelter
+# just-pet-pics
 A MERN SPA for a Just Pet Pics
 
-Check it out at http://davidgaetan.com
+Check it out at http://justpetpics.com
